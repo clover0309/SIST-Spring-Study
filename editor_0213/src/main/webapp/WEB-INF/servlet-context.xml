@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 컨트롤러들에게 어노테이션을 지정하는 것을 유용하게 활용할수있음 -->
+    <mvc:annotation-driven/>
+
+    <!-- 첨부파일 처리 (jsp에서 사용하던 multipart와 같은기능) 넘어오는 파일들은 전부 multipartFile로 인식함.
+    던질때는 MultipartFile로 던져짐.-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="-1"/>
+    </bean>
+
+
+
+    <!-- webapp/resources폴더를 지정한다. -->
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <!-- context:component-scan 을 항상 확인을 해주자. -->
+    <context:component-scan base-package="Control"/>
+</beans>

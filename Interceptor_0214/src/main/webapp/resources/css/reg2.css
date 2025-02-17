@@ -1,0 +1,148 @@
+@charset "UTF-8";
+#contents_sub{
+	width: 900px;
+	height: auto;
+	margin: auto;
+	padding-top: 30px;
+}
+.sub_title{
+	background: url(../img/sub_title.png) no-repeat;
+	text-indent: -9999px;
+}
+
+h1.title01{
+	height: 30px;
+	background-position: 0 0; 
+	margin-bottom: 30px;
+}
+
+#emailList{
+	
+	font-size: 13px;
+	width: 204px;
+	height: 25px;
+	background: #eee;
+	font-weight:strong;
+	border: none;
+}	
+#d1{
+	vertical-align:middle;
+	display:inline-block;
+	position: relative;
+	margin-right: 7px;
+	width:204px;
+	height: 25px;
+	border: 2px solid #ddd;
+	border-radius:10px;
+	background-color: #eee;
+	
+}
+#d2{
+	
+	width:204px;
+	position: absolute;
+	top:0px;
+	z-index: 1;
+	clip:rect(3,200,18,3);
+}
+/* p.title_src{
+	font-size: 15px;
+	font-weight: bold;
+	color: #222;
+	padding-top: 10px;
+	padding-left: 5px;
+	padding-bottom: 40px;  
+	padding: 10px 0 40px 5px;
+} */
+.guide_txt{
+	color: #999;
+	font-size: 11px;
+	padding-left: 20px;
+	padding-bottom: 7px;
+	line-height: 1.3em;
+	margin-top: 10px;
+}
+.req {
+	display: inline-block;
+	width:12px;
+	height:8px;
+	background:url("../img/bult.png") no-repeat;
+	text-indent: -9999px;
+	margin-left: -16px; 
+}
+/* .noreq{
+	margin:8px;
+	
+} */
+
+/* 테이블 작업 */
+.table_type01{
+	border-collapse: collapse;
+	border:1px solid #ddd;
+	border-left: none;
+	border-right: none;
+}
+.table_type01 th{
+	text-align:left;
+	border:1px solid #ddd;
+	border-left: none;
+	font-weight: bold;
+	padding:10px 0 10px 30px;
+	background-color: #efefef;
+}
+.table_type01 td{
+	padding:10px;
+	border:1px solid #ddd;
+	
+	border-right: none;
+	height: 20px;
+}
+
+.table_type01 td p .b_bdcheck{
+	position: relative;
+	top: -5px;	
+}
+.b_bdcheck{
+	width:60px;
+	height: 25px;
+	background-position: 0 -150px;
+}
+
+.postcheck{
+	border:none;
+	width:80px;
+	height: 25px;
+	background-position: -60px -150px;
+}
+label.hidden{
+	display:block;
+	width:0;
+	height: 0;
+	font-size: 0;
+	line-height: 0px;
+	/* display: none; */
+	text-indent: -9999px;
+}
+
+.table_type01 input[type=text],input[type=password]{
+	width:120px;
+	border:1px solid #ddd;
+	border-radius:10px;
+	padding:5px 5px;
+	
+}
+
+.b_confirm{
+	margin-top:30px;
+	display: inline-block;
+	width:65px;
+	height: 30px;
+	background-position: 0 -110px;
+}
+.b_cancel{
+	margin-top:30px;
+	display: inline-block;
+	width:65px;
+	height: 30px;
+	background-position: -100px -110px;
+}

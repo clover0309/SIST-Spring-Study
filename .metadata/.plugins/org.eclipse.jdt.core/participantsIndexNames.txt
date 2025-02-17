@@ -1,0 +1,3 @@
+INDEX VERSION 1.131
+C:\My_Study\Spring_Study\work\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2254860911.index
+\ex0211\src\main\java

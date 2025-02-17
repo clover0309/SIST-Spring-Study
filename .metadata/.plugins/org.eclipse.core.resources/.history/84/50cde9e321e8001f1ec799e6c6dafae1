@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        
+	<!-- DI(Dependence Injection) : 의존성 주입 -->
+	<!-- 
+		TestVO t1 = new TestVO();
+		vo.setmsg("DI연습입니다.");
+	 -->
+	 
+	 <bean id = "t1" class="ex1.vo.TestVO">
+	 	<property name="msg">
+	 		<value>DI연습입니다.</value>
+	 	</property>
+	 </bean>
+</beans>        

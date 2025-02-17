@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="action.Test1Action" name="/t1.inc"/>
+    <bean class="action.NowAction" name="/now.inc"/>
+    <bean class="action.Test3Action" name="/t3.inc"/>
+    <bean class="action.Test4Action"/> <!-- 어노테이션 @Controller을 사용하면 클래스만 지정해주면됨. -->
+    <!-- 뷰 리저버
+    뷰 리저버가 이미 확장자와, 경로를 잡아주는 역할을함.
+    -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="suffix" value=".jsp"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+    </bean>
+</beans>

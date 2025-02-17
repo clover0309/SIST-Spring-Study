@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bbs">
+
+	<!-- CommList안에 cList를 채우기 위해서 resultMap을 사용했음 -->
+	<!-- BbsVO에 c_list가 채워진다 -->
+	<resultMap type="mybatis.vo.BbsVO" id="map1">
+		<id property="b_idx" column="b_idx"/>
+		<!-- 이미 안에 여러개가 존재하기 때문에 collection 사용 -->
+		<!--commList가 호출되면 c_list가 채워지고,-->
+		<!--CommVO가 여러개 있는 ArrayList를 만든다.-->
+		<collection property="c_list" ofType="vo.CommVO" select="commList" column="b_idx"></collection>
+	</resultMap>
+
+	<!-- 총 게시물 수를 반환하는 기능 -->
+	<select id="totalCount" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM bbs_t
+		WHERE status = 0 AND bname = #{bname}
+	</select>
+
+	<!--  원글들을 가져오는 기능 (status가 1이면 삭제된 글,
+		정렬로 가장 최근의 글을 맨 위로 올라오게 해야 함!) -->
+	<select id="list" resultMap="map1" parameterType="Map">
+		SELECT * FROM(
+			SELECT @RN:=@RN+1 AS rnum, a.* FROM(
+				SELECT * FROM bbs_t
+				WHERE status = 0 AND bname = #{bname}
+				ORDER BY b_idx DESC
+			) a, (SELECT @RN:=0) b
+		) c WHERE c.rnum BETWEEN #{begin} AND #{end}
+	</select>
+
+	<insert id="add" parameterType="Map">
+		INSERT INTO bbs_t(subject, writer, content, file_name, ori_name, write_date, ip, pwd, hit, bname, status)
+		VALUES(#{title}, #{writer}, #{content}, #{fname}, #{oname}, NOW(), #{ip}, #{pwd}, 0, #{bname}, 0)
+	</insert>
+
+	<!-- b_idx인자를 받아서 해당 게시물을 반환하는 select문 작성 -->
+	<!-- map1으로 바뀌면 게시글 하나당 있는 댓글들을 같이 가져옴 -->
+	<select id="get_bbs" parameterType="String" resultMap="map1">
+		SELECT * FROM bbs_t
+		WHERE b_idx = #{a}
+	</select>
+
+	<update id="hitUp" parameterType="String">
+		UPDATE bbs_t
+		SET hit = hit+1
+		WHERE b_idx = #{n}
+	</update>
+
+	<!-- 특정 게시물의 댓글들을 반환하는 select문 작성 -->
+	<select id="commList" resultType="mybatis.vo.CommVO" parameterType="String">
+		SELECT * FROM comment_t WHERE b_idx = #{n} and status = 0
+	</select>
+
+	<update id="edit" parameterType="Map">
+		UPDATE bbs_t
+		<trim prefix="SET" suffixOverrides=",">
+			subject = #{title},
+			content = #{content},
+			<if test="fname != null">
+				file_name = #{fname},
+				ori_name = #{oname}
+			</if>
+		</trim>
+		WHERE b_idx = #{b_idx} AND pwd = #{pwd}
+	</update>
+	<!-- 댓글저장 -->
+	<insert id="commAdd" parameterType="mybatis.vo.CommVO">
+		INSERT INTO comment_t(writer, content, pwd, write_date, ip, b_idx, status)
+		VALUES(#{writer}, #{content}, #{pwd}, now(), #{ip} ,#{b_idx}, 0)
+	</insert>
+
+	<!-- 원글 삭제 -->
+	<update id="del" parameterType="Map">
+		UPDATE bbs_t
+		SET status = 1
+		WHERE b_idx = #{b_idx} and pwd = #{pwd}
+	</update>
+
+</mapper>
+
+
+
+
+
+
