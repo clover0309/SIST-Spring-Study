@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="emp">
+
+    <select id="list" resultType="mybatis.vo.EmpVO">
+      SELECT * FROM emp
+    </select>
+
+  <select id="getEmp" resultType="mybatis.vo.EmpVO" parameterType="String">
+    SELECT * FROM emp WHERE empno = #{a}
+  </select>
+
+  <!-- 동적쿼리
+      searchType이 0일 때 사번검색
+      searchType이 1일 때 이름검색
+      searchType이 2일 때 직종검색
+      searchType이 3일 때 부서검색
+  -->
+  <select id="search" parameterType="Map" resultType="mybatis.vo.EmpVO">
+    SELECT * FROM emp
+    <trim prefix="WHERE">
+        <if test="searchType != null and searchType == 0">
+          empno = #{searchValue}
+        </if>
+        <if test="searchType != null and searchType == 1">
+          ename LIKE CONCAT('%', #{searchValue}, '%')
+        </if>
+        <if test="searchType != null and searchType == 2">
+          job LIKE CONCAT('%', #{searchValue}, '%')
+        </if>
+        <if test="searchType != null and searchType == 3">
+          deptno = #{searchValue}
+        </if>
+    </trim>
+  </select>
+</mapper>
